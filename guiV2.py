@@ -12,12 +12,6 @@ res_previewY = int(res_previewX*9/16)
 ################################# CLASSES ET FONCTIONS #################################
 
 class FluxVideos: 
-    """
-J'ai pas tout compris, mais je dois passer par un .qquechose (ici .tmp) pour pouvoir utiliser les trucs de cv2 dans ma classe. 
-J'imagine que sinon il considère que mon objet appartient déjà à une classe (FluxVideo), et du coup avec .tmp je créer un attribut intermédiaire sur lequel 
-je peux utiliser des méthodes de cv2. C'est peut-être pas opti du tout, mais je bricole en impro totale.
-Ah et ça, c'est un commentaire sous forme de string parce que python ignore les string qui ne sont pas assignés à une variable. Ça permet de faire des commentaires sur plusieurs lignes.
-    """
     
     def __init__(self,index_cam, resolution_X, resolution_Y):
         self.tmp = cv2.VideoCapture(int(index_cam))                   #creation de l'objet flux vidéo
@@ -41,7 +35,7 @@ def update(flux_video, label_preview, legende):  # Ajoutez les paramètres flux_
 
         label_preview.configure(image=ctk_img)
 
-    Screen.after(20, update, flux_video, label_preview, legende)  # Passez les paramètres pour la prochaine exécution de la fonction update. un delai trop bas = lag de ouf et lenteur au demarrage
+    Screen.after(1, update, flux_video, label_preview, legende)  # Passez les paramètres pour la prochaine exécution de la fonction update. un delai trop bas = lag de ouf et lenteur au demarrage
 
 def save_photo(source,nom_vue):                               #fonction prise de photo
     OF = tb_OF.get()
