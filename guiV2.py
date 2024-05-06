@@ -35,7 +35,7 @@ def update(flux_video, label_preview, legende):  # Ajoutez les paramètres flux_
 
         label_preview.configure(image=ctk_img)
 
-    Screen.after(1, update, flux_video, label_preview, legende)  # Passez les paramètres pour la prochaine exécution de la fonction update. un delai trop bas = lag de ouf et lenteur au demarrage
+    Screen.after(30, update, flux_video, label_preview, legende)  # Passez les paramètres pour la prochaine exécution de la fonction update. un delai trop bas = lag de ouf et lenteur au demarrage
 
 def save_photo(source,nom_vue):                               #fonction prise de photo
     OF = tb_OF.get()
@@ -54,12 +54,18 @@ def save_photo(source,nom_vue):                               #fonction prise de
     else:
         print("Photo non enregistrée")
 
-################################# ACTIONS BOUTONS #################################
-def bt_save_click():
+################################# FONCTIONS BOUTONS #################################
+def fct_save_click():
 
     save_photo(top_view, "top")
     #save_photo(secondary_view,"secondary")
     tb_No_Pce.delete(0,'end')
+
+def fct_change_cam():
+    global top_view, preview1
+    top_view.release()
+    top_view=FluxVideos(1, 1920, 1080)
+    update(top_view,preview1,"top view")
 
 ################################# SETUP INTERFACE #################################
 
@@ -88,7 +94,14 @@ btn_Save_Images = ctk.CTkButton(
     Screen,
     text="Enregistrer les photos",
     font=ctk.CTkFont(size=20,weight='normal'),
-    command=bt_save_click
+    command=fct_save_click
+    )
+
+btn_change_cam = ctk.CTkButton(
+    Screen,
+    text="Changement de camera",
+    font=ctk.CTkFont(size=20,weight='normal'),
+    command=fct_change_cam
     )
 
 preview1 = ctk.CTkLabel(frm_previews,text="")                                                      #Init du retour video 1
@@ -110,6 +123,8 @@ preview1.pack(padx=10,pady=10,side=ctk.LEFT)
 #preview2.pack(padx=10,pady=10,side=ctk.LEFT)
 #preview3.pack(padx=10,pady=10,side=ctk.LEFT)
 
+btn_change_cam.pack()
+
 ################################# SETUP DES INPUTS #################################
 
 top_view = FluxVideos(0, 1920, 1080)
@@ -120,7 +135,7 @@ top_view = FluxVideos(0, 1920, 1080)
 
 
 update(top_view,preview1,"top view")
-update(top_view,preview2,"secondary view")
+#update(top_view,preview2,"secondary view")
 #update(top_view,preview3,"third view")
 
 Screen.mainloop()
