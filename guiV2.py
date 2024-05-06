@@ -35,12 +35,11 @@ def update(flux_video, label_preview, legende):  # Ajoutez les paramètres flux_
 
         label_preview.configure(image=ctk_img)
 
-    Screen.after(30, update, flux_video, label_preview, legende)  # Passez les paramètres pour la prochaine exécution de la fonction update. un delai trop bas = lag de ouf et lenteur au demarrage
+    Screen.after(500, update, flux_video, label_preview, legende)  # Passez les paramètres pour la prochaine exécution de la fonction update. un delai trop bas = lag de ouf et lenteur au demarrage
 
 def save_photo(source,nom_vue):                               #fonction prise de photo
     OF = tb_OF.get()
     No_Pce = tb_No_Pce.get()
-
     folder_name = "archives"
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
@@ -57,15 +56,10 @@ def save_photo(source,nom_vue):                               #fonction prise de
 ################################# FONCTIONS BOUTONS #################################
 def fct_save_click():
 
-    save_photo(top_view, "top")
-    #save_photo(secondary_view,"secondary")
+    save_photo(first_view, "first")
+    save_photo(secondary_view,"secondary")
+    save_photo(third_view,"third")
     tb_No_Pce.delete(0,'end')
-
-def fct_change_cam():
-    global top_view, preview1
-    top_view.release()
-    top_view=FluxVideos(1, 1920, 1080)
-    update(top_view,preview1,"top view")
 
 ################################# SETUP INTERFACE #################################
 
@@ -97,13 +91,6 @@ btn_Save_Images = ctk.CTkButton(
     command=fct_save_click
     )
 
-btn_change_cam = ctk.CTkButton(
-    Screen,
-    text="Changement de camera",
-    font=ctk.CTkFont(size=20,weight='normal'),
-    command=fct_change_cam
-    )
-
 preview1 = ctk.CTkLabel(frm_previews,text="")                                                      #Init du retour video 1
 preview2 = ctk.CTkLabel(frm_previews,text="")
 preview3 = ctk.CTkLabel(frm_previews,text="")
@@ -120,28 +107,27 @@ lbl_tiret.pack(side=ctk.LEFT)
 tb_No_Pce.pack(side=ctk.LEFT)
 
 preview1.pack(padx=10,pady=10,side=ctk.LEFT)
-#preview2.pack(padx=10,pady=10,side=ctk.LEFT)
-#preview3.pack(padx=10,pady=10,side=ctk.LEFT)
+preview2.pack(padx=10,pady=10,side=ctk.LEFT)
+preview3.pack(padx=10,pady=10,side=ctk.LEFT)
 
-btn_change_cam.pack()
 
 ################################# SETUP DES INPUTS #################################
 
-top_view = FluxVideos(0, 1920, 1080)
-#secondary_view = FluxVideos(0, 1920, 1080)
-#third_view = FluxVideos(0, 1920, 1080)
+first_view = FluxVideos(0, 1920, 1080)
+secondary_view = FluxVideos(1, 3840, 2160)
+third_view = FluxVideos(2, 1920, 1080)
 
 ################################# START DES BOUCLES ET GUI #################################
 
 
-update(top_view,preview1,"top view")
-#update(top_view,preview2,"secondary view")
-#update(top_view,preview3,"third view")
+update(first_view,preview1,"first view")
+update(secondary_view,preview2,"secondary view")
+update(third_view,preview3,"third view")
 
 Screen.mainloop()
 
-top_view.release()
-#secondary_view.release()
-#third_view.release()
+first_view.release()
+secondary_view.release()
+third_view.release()
 
 print("Cameras liberées - Fin de programme")
