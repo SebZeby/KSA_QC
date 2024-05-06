@@ -11,7 +11,7 @@ res_previewY = int(res_previewX*9/16)
 
 ################################# CLASSES ET FONCTIONS #################################
 
-class FluxVideos: 
+class FluxVideos:
     
     def __init__(self,index_cam, resolution_X, resolution_Y):
         self.tmp = cv2.VideoCapture(int(index_cam))                   #creation de l'objet flux vidéo
@@ -107,8 +107,8 @@ lbl_tiret.pack(side=ctk.LEFT)
 tb_No_Pce.pack(side=ctk.LEFT)
 
 preview1.pack(padx=10,pady=10,side=ctk.LEFT)
-preview2.pack(padx=10,pady=10,side=ctk.LEFT)
-preview3.pack(padx=10,pady=10,side=ctk.LEFT)
+#preview2.pack(padx=10,pady=10,side=ctk.LEFT)
+#preview3.pack(padx=10,pady=10,side=ctk.LEFT)
 
 ################################# SETUP DES INPUTS #################################
 
